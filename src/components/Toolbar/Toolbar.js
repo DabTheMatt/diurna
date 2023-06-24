@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Paragraph from "./Tools/Paragpraph/Paragraph";
 import Title from "./Tools/Title/Title";
 
-function Toolbar() {
+function Toolbar(props) {
 
     const [tools, setTools] = useState([
         {
@@ -55,6 +55,7 @@ function Toolbar() {
             backgroundColor: 'red'
         },
     ]);
+
     const [clicked, setClicked] = useState('tool-container');
 
     // const handleToolClick = (e) => {

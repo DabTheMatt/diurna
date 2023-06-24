@@ -8,7 +8,6 @@ function App() {
       <h1 className='main-title'>Diurna</h1>
       <div className='main-container'>
         <Playground />
-        <Toolbar />
       </div>
     </div>
   );
