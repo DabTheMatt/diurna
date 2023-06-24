@@ -16,7 +16,7 @@
 }
 
 .playground-container {
-  width: 640px;
+  width: 600px;
   border: 0.5px solid black;
   min-height: 80vh;
   background-color: rgb(240, 240, 240);
@@ -74,4 +74,19 @@
 .tool-tag {
   font-size: 14px;
   font-weight: 400;
+}
+
+.block-hover {
+  position: relative;
+}
+
+.block-hover::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: grey;
+  opacity: 0.5;
 }
