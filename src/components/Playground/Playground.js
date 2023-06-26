@@ -73,7 +73,7 @@ function Playground() {
             if(block.tag === 'p') {
                 return(
                     <div 
-                        className={block.hover}
+                        className="block-container"
                         key={block.id}
                         onMouseOver={(e)=>handleMouseOverBlock(e, block.id)}
                         onMouseLeave={(e)=>handleMouseLeaveBlock(e)}
@@ -86,7 +86,7 @@ function Playground() {
                             </tr>
                             
                         </table>
-                        
+                        <div class={block.hover}>aaa</div> 
                     </div>
                 )
             } else if (block.tag === 'h1') {
