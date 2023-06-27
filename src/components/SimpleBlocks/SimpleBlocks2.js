@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function SimpleBlocks(props) {
+function SimpleBlocks2(props) {
 
     const classNames = require('classnames');
     const up = '>'
@@ -16,7 +16,11 @@ function SimpleBlocks(props) {
                 height: 'auto',
                 fontSize: '40px'
             },
-            col: 1
+            col: [
+                {
+                    width: '100%'
+                }
+            ]
         },
         {
             id: 1,
@@ -27,7 +31,11 @@ function SimpleBlocks(props) {
             style: {
                 height: 'auto',
             },
-            col: 1
+            col: [
+                {
+                    width: '100%'
+                }
+            ]
         },
         {
             id: 2,
@@ -36,7 +44,18 @@ function SimpleBlocks(props) {
             style: {
                 height: 'auto',
             },
-            col: 1
+            col: [
+                {
+                    width: '20%'
+                },
+                {
+                    width: '30%'
+                },
+                {
+                    width: '50%'
+                },
+                
+            ],
         },
         {
             id: 3,
@@ -45,16 +64,14 @@ function SimpleBlocks(props) {
             style: {
                 height: 'auto',
             },
-            col: 1
-        },
-        {
-            id: 4,
-            color: 'blue',
-            active: '',
-            style: {
-                height: 'auto',
-            },
-            col: 2
+            col: [
+                {
+                    width: '20%'
+                },
+                {
+                    width: '80%'
+                }
+            ],
         },
     ])
 
@@ -102,58 +119,53 @@ function SimpleBlocks(props) {
     }
 
     return (
-      <div className="simple-blocks-container">
-        {blocks.map((block) => {
-            {if(block.col==='1'){
-                if(block.active==='block-active'){
-                    return(
-                        <div className="block-block-container">
-                            <div
-                                key={block.id}
-                                className={`simple-block ${block.active}`}
-                                style={block.style}
-                                onMouseOver={(e)=>handleBlockOver(block.id)}
-                                onMouseLeave={(e)=>handleBlockLeave(block.id)}
-                            >
-                                {block.value}
-                            </div>
-                            <div 
-                                key={block.id}
-                                className="over"
-                                onMouseLeave={(e)=>handleBlockLeave(block.id)}
-                            >
-                                <div className="tools-container">
-                                    <div 
-                                        className="up"
-                                        onClick={(e)=>handleUp(block.id)}
-                                    >&#8593;</div>
-                                    <div 
-                                        className="up"
-                                        onClick={(e)=>handleDown(block.id)}
-                                        >&#8595;</div>
-                                </div>
-                                
-                            </div>
+      <div className="width-600">
+        {blocks.map((block)=>{
+            if(Object.keys(block.col).length === 3){
+                return(
+                    <div className="col-3">
+                        {block.col.map((col)=>{
+                            return(
+                                <div 
+                            className="col"
+                            style={col}
+                        >
+                            {block.id}
                         </div>
-                        
-                    )
-                }}
-                return (
-                    <div
-                        key={block.id}
-                        className={`simple-block ${block.active}`}
-                        style={block.style}
-                        onMouseOver={(e)=>handleBlockOver(block.id)}
-                        onMouseLeave={(e)=>handleBlockLeave(block.id)}
-                    >
-                        {block.value}
+                            )
+                        })}
                     </div>
                 )
-                }
-                
+            } else if(Object.keys(block.col).length === 2) {
+                return(
+                    <div className="col-2">
+                        <div 
+                            className="col"
+                            style={block.col.one}
+                        >
+                            {block.id}
+                        </div>
+                        <div 
+                            className="col"
+                            style={block.col.two}
+                        >
+                            {block.id}
+                        </div>
+                    </div>
+                )
+            } else {
+                return(
+                    <div className="col-1">
+                        <div
+                            className="col"
+                        >{block.id}</div>
+                    </div>
+                )
+            }
+            
         })}
       </div>
     );
   }
   
-  export default SimpleBlocks;
+  export default SimpleBlocks2;
