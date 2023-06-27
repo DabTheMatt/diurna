@@ -1,6 +1,6 @@
 import './App.css';
 import Playground from './components/Playground/Playground';
-import SimpleBlocks from './components/SimpleBlocks/SimpleBlocks';
+import SimpleBlocks2 from './components/SimpleBlocks/SimpleBlocks2';
 import Toolbar from './components/Toolbar/Toolbar';
 
 
@@ -10,7 +10,7 @@ function App() {
       <h1 className='main-title'>Diurna</h1>
       <div className='main-container'>
         {/* <Playground /> */}
-        <SimpleBlocks />
+        <SimpleBlocks2 />
       </div>
     </div>
   );
