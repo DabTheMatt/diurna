@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/diurna/static/css/main.957595a2.css",
-    "main.js": "/diurna/static/js/main.be00bf80.js",
+    "main.css": "/diurna/static/css/main.787dfa48.css",
+    "main.js": "/diurna/static/js/main.aed58f17.js",
     "static/js/787.0c1b73ee.chunk.js": "/diurna/static/js/787.0c1b73ee.chunk.js",
     "index.html": "/diurna/index.html",
-    "main.957595a2.css.map": "/diurna/static/css/main.957595a2.css.map",
-    "main.be00bf80.js.map": "/diurna/static/js/main.be00bf80.js.map",
+    "main.787dfa48.css.map": "/diurna/static/css/main.787dfa48.css.map",
+    "main.aed58f17.js.map": "/diurna/static/js/main.aed58f17.js.map",
     "787.0c1b73ee.chunk.js.map": "/diurna/static/js/787.0c1b73ee.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.957595a2.css",
-    "static/js/main.be00bf80.js"
+    "static/css/main.787dfa48.css",
+    "static/js/main.aed58f17.js"
   ]
 }
