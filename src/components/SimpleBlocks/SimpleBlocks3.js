@@ -66,10 +66,7 @@ function SimpleBlocks2(props) {
             },
             col: [
                 {
-                    style: {
-                        width: 'width: 20%'
-                    }
-                    
+                    width: '20%'
                 },
                 {
                     width: '80%'
@@ -126,59 +123,17 @@ function SimpleBlocks2(props) {
         {blocks.map((block)=>{
             return(
                 <div>
-                    {block.col.map((column)=>{
-                        return(
-                            <div
-                                className={column.style}
-                                
-                            >
-                                {column.width}
-                            </div>
-                        )
-                    })}
+                    {block.col.map((el)=>{
+                return(
+                    <div>
+                        fff
+                    </div>
+                )
+            })}
                 </div>
             )
-            if(Object.keys(block.col).length === 3){
-                return(
-                    <div className="col-3">
-                        {block.col.map((col)=>{
-                            return(
-                                <div 
-                            className="col"
-                            style={col}
-                        >
-                            {block.id}
-                        </div>
-                            )
-                        })}
-                    </div>
-                )
-            } else if(Object.keys(block.col).length === 2) {
-                return(
-                    <div className="col-2">
-                        <div 
-                            className="col"
-                            style={block.col.one}
-                        >
-                            {block.id}
-                        </div>
-                        <div 
-                            className="col"
-                            style={block.col.two}
-                        >
-                            {block.id}
-                        </div>
-                    </div>
-                )
-            } else {
-                return(
-                    <div className="col-1">
-                        <div
-                            className="col"
-                        >{block.id}</div>
-                    </div>
-                )
-            }
+            
+            
             
         })}
       </div>
