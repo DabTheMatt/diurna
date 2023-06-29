@@ -101,7 +101,7 @@
 }
 
 .block-active {
-  background-color: rgba(0,0,0,0.2);
+  background-color: red !important;
 }
 
 .over {
@@ -155,5 +155,19 @@
 }
 
 .width-600 {
+  width: 600px;
+}
+
+.tr-col {
+  display: flex;
+  background-color: aqua;
+}
+
+.all-container {
+  display: flex;
+}
+
+.editor-container {
+  margin-left: 40px;
   width: 600px;
 }
