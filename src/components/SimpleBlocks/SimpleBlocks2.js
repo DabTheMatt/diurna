@@ -5,13 +5,13 @@ function SimpleBlocks2(props) {
   const up = ">";
 
   const [editor, setEditor] = useState({
-    blockId: '',
-    value: '',
-  })
+    blockId: "",
+    value: "",
+  });
 
-  const [editorId, setEditorId] = useState('222');
-  const [editorValue, setEditorValue] = useState('333');
-
+  const [editorId, setEditorId] = useState("222");
+  const [editorValue, setEditorValue] = useState("333");
+  const [blockId, setBlockId] = useState('');
 
   const [blocks, setBlocks] = useState([
     {
@@ -72,7 +72,7 @@ function SimpleBlocks2(props) {
       col: [
         {
           content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet eros id neque ultricies consectetur nec eget lorem. Cras eu nisi egestas.",
+            "<p>Lorem ipsum dolor sit amet</p>, consectetur adipiscing elit. Aenean sit amet eros id neque ultricies consectetur nec eget lorem. Cras eu nisi egestas.",
           style: {
             width: "20%",
             backgroundColor: "white",
@@ -138,12 +138,14 @@ function SimpleBlocks2(props) {
   const handleBlockOver = (e, colIndex) => {
     let id = parseInt(colIndex);
     let tempBlocks = blocks;
+    
     tempBlocks.forEach((block) => {
       let bId = block.id;
       block.col.forEach((cc, index) => {
         let cId = bId.toString() + index.toString();
         if (parseInt(cId) === id) {
           cc.active = "block-active";
+          setBlockId(block.id[0]);
         } else {
           cc.active = "";
         }
@@ -160,52 +162,78 @@ function SimpleBlocks2(props) {
     setBlocks([...tempBlocks]);
   };
 
-  const handleUp = (id) => {
-    let tempBlocks = blocks;
-    let index = tempBlocks.findIndex((e) => e.id == id);
-    if (index > 0) {
-      let el = tempBlocks[index];
-      tempBlocks[index] = tempBlocks[index - 1];
-      tempBlocks[index - 1] = el;
-    }
-    setBlocks([...tempBlocks]);
-  };
 
-  const handleDown = (id) => {
-    let tempBlocks = blocks;
-    let index = tempBlocks.findIndex((e) => e.id == id);
-    if (index !== -1 && index < tempBlocks.length - 1) {
-      let el = tempBlocks[index];
-      tempBlocks[index] = tempBlocks[index + 1];
-      tempBlocks[index + 1] = el;
-    }
-    setBlocks([...tempBlocks]);
-  };
 
   const handleBlockClick = (e, id) => {
-    setEditorId(id)
-    console.log('e', e.target.outerText)
-    setEditorValue(e.target.outerText)
-    console.log('rrr', id)
+    console.log('block click', id)
+    
+    console.log('dididid', blockId)
+    setEditorValue(e.target.outerText);
     let tempBlocks = blocks;
-    let tempEditor = editor;
+    setBlockId(id)
     tempBlocks.forEach((block) => {
-        console.log('eee')
       let bId = block.id;
+      console.log('bbii', blockId, block.id)
       block.col.forEach((cc, index) => {
         let cId = bId.toString() + index.toString();
-        console.log(cId)
         if (parseInt(cId) === id) {
-            console.log('aaaaafff')
-            setEditorId('aaa')
-            setEditorValue('ddd')
+          setEditorId("aaa");
+          setEditorValue("ddd");
         }
       });
     });
-    console.log('dsdsd', editorId)
     setBlocks([...tempBlocks]);
+  };
 
+  const handleEditorInputChange = (e) => {
+    setEditorValue(e.target.value)
   }
+
+  const handleSave = () => {
+    console.log('1')
+    console.log(editorId, editorValue)
+    let tempBlocks = blocks;
+    tempBlocks.forEach((block) => {
+      console.log('b')
+      let bId = block.id;
+      block.col.forEach((cc, index) => {
+        console.log('c')
+        let cId = bId.toString() + index.toString();
+        if (parseInt(cId) === parseInt(editorId)) {
+          console.log('cc.content', cId)
+          cc.content = editorValue;
+        }
+      });
+    });
+    console.log("dsdsd", editorId);
+    setBlocks([...tempBlocks]);
+  }
+
+  const handleUp = (id) => {
+    console.log('ff', blockId)
+    console.log('id', id)
+    let tempBlocks = blocks;
+    console.log('tb', tempBlocks)
+    let index = tempBlocks.findIndex(e => e.id == id);
+    if (index > 0) {
+      let el = tempBlocks[index];
+      console.log('el', el)
+      tempBlocks[index] = tempBlocks[index - 1];
+      tempBlocks[index - 1] = el;
+    }
+    setBlocks([...tempBlocks])
+}
+
+// const handleDown = (id) => {
+// let tempBlocks = blocks;
+// let index = tempBlocks.findIndex(e => e.id == id);
+// if (index !== -1 && index < tempBlocks.length - 1) {
+//     let el = tempBlocks[index];
+//     tempBlocks[index] = tempBlocks[index + 1];
+//     tempBlocks[index + 1] = el;
+//   }
+//   setBlocks([...tempBlocks])
+// }
 
   return (
     <div className="all-container">
@@ -213,17 +241,18 @@ function SimpleBlocks2(props) {
         {blocks.map((block) => {
           let blockIndex = block.id;
           return (
-            <div className="tr-col" style={block.style} >
+            <div className="tr-col" style={block.style}>
               {block.col.map((column, index) => {
                 let colIndex = blockIndex.toString() + index.toString();
                 return (
                   <div
                     id={colIndex}
+                    bid={block.id}
                     style={column.style}
                     className={column.active}
                     onMouseOver={(e) => handleBlockOver(e, colIndex)}
                     value={column.content}
-                    onClick={(e)=>handleBlockClick(e, colIndex)}
+                    onClick={(e) => handleBlockClick(e, colIndex)}
                   >
                     {column.content}
                   </div>
@@ -234,9 +263,35 @@ function SimpleBlocks2(props) {
         })}
       </div>
       <div className="editor-container">
-        dane
         <h1>{editorId}</h1>
-        <p>{editorValue}</p>
+        <textarea
+          name="editor"
+          className="editor-input"
+          type="text"
+          value={editorValue}
+          onChange={(e)=>handleEditorInputChange(e)}
+        ></textarea>
+        <div className="buttons-container">
+          <button
+          className="editor-save-btn"
+          onClick={()=>handleUp(blockId)}
+          >
+            Move Up
+          </button>
+          <button
+          className="editor-save-btn"
+          
+          >
+            Move Down
+          </button>
+          <button
+            className="editor-save-btn"
+            onClick={handleSave}
+          >
+            Save
+          </button>
+        </div>
+        
       </div>
     </div>
   );

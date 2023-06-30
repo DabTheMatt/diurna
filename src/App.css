@@ -101,7 +101,7 @@
 }
 
 .block-active {
-  background-color: red !important;
+  background-color: whitesmoke !important;
 }
 
 .over {
@@ -169,5 +169,30 @@
 
 .editor-container {
   margin-left: 40px;
-  width: 600px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-input {
+  width: 100%;
+  height: 200px;
+  display: inline-block;
+  white-space: pre-line;
+  border: none;
+  outline: none;
+  background-color: whitesmoke;
+  padding: 10px;
+}
+
+.editor-save-btn {
+  width: 100px;
+  align-self: flex-end;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
 }
