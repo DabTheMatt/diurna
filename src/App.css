@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  color: rgb(10, 10, 10);
 }
 
 .App {
@@ -101,6 +102,11 @@
 }
 
 .block-active {
+  
+  color: rgba(0, 0, 150, 0.6);
+}
+
+.row-active {
   background-color: whitesmoke !important;
 }
 
@@ -176,13 +182,15 @@
 
 .editor-input {
   width: 100%;
-  height: 200px;
+  height: auto;
   display: inline-block;
   white-space: pre-line;
   border: none;
   outline: none;
   background-color: whitesmoke;
   padding: 10px;
+  font-size: 12px;
+  font-family: inherit;
 }
 
 .editor-save-btn {
@@ -195,4 +203,8 @@
 .buttons-container {
   display: flex;
   justify-content: flex-end;
+}
+
+.font-red {
+  color: red;
 }
