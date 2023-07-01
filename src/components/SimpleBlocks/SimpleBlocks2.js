@@ -31,7 +31,7 @@ function SimpleBlocks2(props) {
           content: "Title",
           style: {
             width: "100%",
-            backgroundColor: "white",
+            color: ''
           },
         },
       ],
@@ -54,8 +54,9 @@ function SimpleBlocks2(props) {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet eros id neque ultricies consectetur nec eget lorem. Cras eu nisi egestas, semper nunc ut, rutrum diam. Etiam ante leo, laoreet eu enim vel, tincidunt eleifend metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet eros id neque ultricies consectetur nec eget lorem. Cras eu nisi egestas, semper nunc ut, rutrum diam. Etiam ante leo, laoreet eu enim vel, tincidunt eleifend metus.",
           style: {
             width: "100%",
-            backgroundColor: "white",
           },
+          active: '',
+          selected: ''
         },
       ],
     },
@@ -75,30 +76,30 @@ function SimpleBlocks2(props) {
             "<p>Lorem ipsum dolor sit amet</p>, consectetur adipiscing elit. Aenean sit amet eros id neque ultricies consectetur nec eget lorem. Cras eu nisi egestas.",
           style: {
             width: "20%",
-            backgroundColor: "white",
             padding: "10px",
           },
           active: "",
+          selected: ''
         },
         {
           content:
             "Lolor sit amet, consectetur adipiscing elit. Aenean sit amet eros id neque ultricies consectetur nec eget lorem. Cras eu nisi egestas.",
           style: {
             width: "30%",
-            backgroundColor: "white",
             padding: "10px",
           },
           active: "",
+          selected: ''
         },
         {
           content:
             "Consectetur adipiscing elit. Aenean sit amet eros id neque ultricies consectetur nec eget lorem. Cras eu nisi egestas.Lolor sit amet, consectetur adipiscing elit. Aenean sit amet eros id neque ultricies consectetur nec eget lorem. Cras eu nisi egestas.",
           style: {
             width: "50%",
-            backgroundColor: "white",
             padding: "10px",
           },
           active: "",
+          selected: ''
         },
       ],
     },
@@ -118,27 +119,26 @@ function SimpleBlocks2(props) {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet vulputate diam. Maecenas diam mauris, accumsan auctor malesuada sed, egestas ac mauris. Nullam vitae vestibulum orci. Quisque et sodales risus. Suspendisse mauris quam, commodo sed augue sed, pellentesque consequat ipsum. Praesent laoreet at sapien ut accumsan. Mauris facilisis, metus in dictum aliquam, sapien nibh volutpat eros, porttitor viverra risus libero in libero. Nullam at nibh orci.",
           style: {
             width: "50%",
-            backgroundColor: "white",
             padding: "10px",
           },
+          selected: ''
         },
         {
           content:
             "Maecenas vulputate, nisl sed volutpat semper, diam dolor consequat velit, sed sodales augue augue rutrum nisi. Vivamus luctus lectus nec purus tristique, ut cursus velit imperdiet. Aliquam eget purus sed sem vestibulum placerat. Vestibulum commodo odio neque, in luctus ipsum volutpat condimentum. Nulla rhoncus nec justo ut convallis. Fusce vel nisi lacus. Duis eget arcu erat. Aliquam erat volutpat. Cras est risus, maximus eget placerat a, egestas at nisl. Proin laoreet efficitur sem, eget pulvinar ex hendrerit in. Vestibulum vitae malesuada ex. Donec laoreet non lorem ut lacinia. Vivamus placerat ex a scelerisque pulvinar. Vivamus et vulputate libero, at faucibus velit",
           style: {
             width: "50%",
-            backgroundColor: "white",
             padding: "10px",
           },
+          selected: ''
         },
       ],
     },
   ]);
 
-  const handleBlockOver = (e, colIndex) => {
+  const handleColumnOver = (e, colIndex, bloIndex) => {
     let id = parseInt(colIndex);
     let tempBlocks = blocks;
-    
     tempBlocks.forEach((block) => {
       let bId = block.id;
       block.col.forEach((cc, index) => {
@@ -154,6 +154,21 @@ function SimpleBlocks2(props) {
     setBlocks([...tempBlocks]);
   };
 
+  const handleBlockOver = (e, bid) => {
+    let tempBlocks = blocks;
+    
+    tempBlocks.forEach((block) => {
+      
+        if (block.id === bid) {
+          block.active = "row-active";
+          setBlockId(block.id[0]);
+        } else {
+          block.active = "";
+        }
+      });
+    setBlocks([...tempBlocks]);
+  };
+
   const handleBlockLeave = () => {
     let tempBlocks = blocks;
     tempBlocks.forEach((block) => {
@@ -165,20 +180,20 @@ function SimpleBlocks2(props) {
 
 
   const handleBlockClick = (e, id) => {
-    console.log('block click', id)
-    
-    console.log('dididid', blockId)
     setEditorValue(e.target.outerText);
     let tempBlocks = blocks;
     setBlockId(id)
+    setEditorId(id)
     tempBlocks.forEach((block) => {
       let bId = block.id;
-      console.log('bbii', blockId, block.id)
       block.col.forEach((cc, index) => {
         let cId = bId.toString() + index.toString();
-        if (parseInt(cId) === id) {
-          setEditorId("aaa");
-          setEditorValue("ddd");
+        if (cId === id) {
+          console.log('e', e)
+          cc.selected = 'font-red'
+
+        } else {
+          cc.selected = ''
         }
       });
     });
@@ -190,34 +205,28 @@ function SimpleBlocks2(props) {
   }
 
   const handleSave = () => {
-    console.log('1')
-    console.log(editorId, editorValue)
+    console.log('ei', editorId)
     let tempBlocks = blocks;
     tempBlocks.forEach((block) => {
-      console.log('b')
       let bId = block.id;
       block.col.forEach((cc, index) => {
-        console.log('c')
         let cId = bId.toString() + index.toString();
         if (parseInt(cId) === parseInt(editorId)) {
-          console.log('cc.content', cId)
           cc.content = editorValue;
+          console.log('ddd')
+        } else {
+          console.log('rrr')
         }
       });
     });
-    console.log("dsdsd", editorId);
     setBlocks([...tempBlocks]);
   }
 
   const handleUp = (id) => {
-    console.log('ff', blockId)
-    console.log('id', id)
     let tempBlocks = blocks;
-    console.log('tb', tempBlocks)
     let index = tempBlocks.findIndex(e => e.id == id);
     if (index > 0) {
       let el = tempBlocks[index];
-      console.log('el', el)
       tempBlocks[index] = tempBlocks[index - 1];
       tempBlocks[index - 1] = el;
     }
@@ -241,7 +250,7 @@ function SimpleBlocks2(props) {
         {blocks.map((block) => {
           let blockIndex = block.id;
           return (
-            <div className="tr-col" style={block.style}>
+            <div className={`tr-col ${block.active}`} style={block.style} onMouseOver={(e) => handleBlockOver(e, block.id)}>
               {block.col.map((column, index) => {
                 let colIndex = blockIndex.toString() + index.toString();
                 return (
@@ -249,8 +258,8 @@ function SimpleBlocks2(props) {
                     id={colIndex}
                     bid={block.id}
                     style={column.style}
-                    className={column.active}
-                    onMouseOver={(e) => handleBlockOver(e, colIndex)}
+                    className={`${column.selected} ${column.active}`}
+                    onMouseOver={(e) => handleColumnOver(e, colIndex, block.id)}
                     value={column.content}
                     onClick={(e) => handleBlockClick(e, colIndex)}
                   >
