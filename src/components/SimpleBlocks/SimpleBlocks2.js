@@ -28,6 +28,11 @@ function SimpleBlocks2(props) {
       },
       col: [
         {
+          colId: ()=> {
+            console.log('method')
+            return 'r'
+          },
+          ccc: 's',
           content: "Title",
           style: {
             width: "100%",
@@ -189,7 +194,6 @@ function SimpleBlocks2(props) {
       block.col.forEach((cc, index) => {
         let cId = bId.toString() + index.toString();
         if (cId === id) {
-          console.log('e', e)
           cc.selected = 'font-red'
 
         } else {
@@ -223,8 +227,10 @@ function SimpleBlocks2(props) {
   }
 
   const handleUp = (id) => {
+
     let tempBlocks = blocks;
-    let index = tempBlocks.findIndex(e => e.id == id);
+    let indexBlock = Number(id[0])
+    let index = tempBlocks.findIndex(e => e.id === indexBlock);
     if (index > 0) {
       let el = tempBlocks[index];
       tempBlocks[index] = tempBlocks[index - 1];
@@ -233,16 +239,42 @@ function SimpleBlocks2(props) {
     setBlocks([...tempBlocks])
 }
 
-// const handleDown = (id) => {
-// let tempBlocks = blocks;
-// let index = tempBlocks.findIndex(e => e.id == id);
-// if (index !== -1 && index < tempBlocks.length - 1) {
-//     let el = tempBlocks[index];
-//     tempBlocks[index] = tempBlocks[index + 1];
-//     tempBlocks[index + 1] = el;
-//   }
-//   setBlocks([...tempBlocks])
-// }
+  const handleDown = (id) => {
+
+    let tempBlocks = blocks;
+    let indexBlock = Number(id[0])
+    let index = tempBlocks.findIndex(e => e.id == indexBlock);
+    if (index !== -1 && index < tempBlocks.length - 1) {
+      let el = tempBlocks[index];
+      tempBlocks[index] = tempBlocks[index + 1];
+      tempBlocks[index + 1] = el;
+    }
+    setBlocks([...tempBlocks])
+}
+
+const handleDuplicate = (id) => {
+  let tempBlocks = blocks;
+  let indexBlock = Number(id[0])
+  let index = tempBlocks.findIndex(e => e.id == indexBlock);
+
+  console.log('tbi', tempBlocks[index].id)
+  let cloneIndex = tempBlocks[index].id
+  let blockCopy = Object.assign({}, tempBlocks[index]);
+
+  tempBlocks.push(blockCopy)
+  // tempBlocks = [...tempBlocks.slice(0, index), blockCopy, ...tempBlocks.slice(index)]
+  console.log('after push', tempBlocks)
+  console.log('temp lenght', tempBlocks.length)
+  tempBlocks[tempBlocks.length - 1].id = tempBlocks.length - 1
+
+  // ship.cargo = [...ship.cargo, {id: cargoId, name: name, index: index, sourceId: id}]
+
+  console.log('after duplicate', tempBlocks)
+  setBlocks([...tempBlocks])
+  setEditorId('')
+  setEditorValue('')
+  setBlockId('')
+}
 
   return (
     <div className="all-container">
@@ -263,6 +295,7 @@ function SimpleBlocks2(props) {
                     value={column.content}
                     onClick={(e) => handleBlockClick(e, colIndex)}
                   >
+                  {column.colId}
                     {column.content}
                   </div>
                 );
@@ -282,14 +315,20 @@ function SimpleBlocks2(props) {
         ></textarea>
         <div className="buttons-container">
           <button
-          className="editor-save-btn"
-          onClick={()=>handleUp(blockId)}
+            className="editor-save-btn"
+            onClick={(e)=>handleDuplicate(editorId)}
+          >
+            Duplicate
+          </button>
+          <button
+            className="editor-save-btn"
+            onClick={(e)=>handleUp(editorId)}
           >
             Move Up
           </button>
           <button
-          className="editor-save-btn"
-          
+            className="editor-save-btn"
+            onClick={(e)=>handleDown(editorId)}
           >
             Move Down
           </button>
